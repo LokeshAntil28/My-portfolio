@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BlogSpace</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', sans-serif; background: #fafaf8; color: #1a1a1a; }
+nav {
+  background: #fff; border-bottom: 1px solid #e8e4dc;
+  padding: 0 5%; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+  position: sticky; top: 0; z-index: 100;
+}
+.logo { font-size: 1.3rem; font-weight: 800; color: #1a1a1a; }
+.logo span { color: #b45309; }
+.nav-right { display: flex; gap: 10px; align-items: center; }
+.nav-btn {
+  padding: 8px 16px; border-radius: 7px; font-size: 13px; font-weight: 600;
+  cursor: pointer; transition: all .2s;
+}
+.btn-ghost { background: none; border: 1.5px solid #e8e4dc; color: #555; }
+.btn-ghost:hover { border-color: #b45309; color: #b45309; }
+.btn-solid { background: #b45309; border: none; color: #fff; }
+.btn-solid:hover { background: #92400e; }
+
+.container { max-width: 1000px; margin: 0 auto; padding: 0 20px; }
+
+/* VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+/* Home */
+.hero-section { padding: 60px 0 40px; text-align: center; }
+.hero-section h1 { font-size: 2.6rem; font-weight: 800; letter-spacing: -1.5px; margin-bottom: 12px; }
+.hero-section h1 em { font-style: italic; color: #b45309; }
+.hero-section p { color: #777; font-size: 16px; max-width: 480px; margin: 0 auto 28px; }
+.search-bar { display: flex; gap: 8px; max-width: 480px; margin: 0 auto; }
+.search-bar input {
+  flex: 1; padding: 11px 16px; border-radius: 8px;
+  border: 1.5px solid #e8e4dc; font-size: 14px; outline: none;
+}
+.search-bar input:focus { border-color: #b45309; }
+.search-bar button {
+  padding: 11px 18px; border-radius: 8px;
+  background: #b45309; color: #fff; border: none; font-size: 14px; font-weight: 600; cursor: pointer;
+}
+
+.tags-bar { display: flex; gap: 8px; flex-wrap: wrap; margin: 24px 0; }
+.tag {
+  padding: 5px 14px; border-radius: 20px; font-size: 13px; font-weight: 500;
+  border: 1.5px solid #e8e4dc; cursor: pointer; transition: all .2s; background: #fff;
+}
+.tag.active, .tag:hover { background: #fef3c7; border-color: #b45309; color: #b45309; }
+
+.posts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 22px; margin-bottom: 60px; }
+.post-card {
+  background: #fff; border-radius: 14px; overflow: hidden;
+  border: 1px solid #e8e4dc; transition: transform .2s, box-shadow .2s; cursor: pointer;
+}
+.post-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
+.post-cover { height: 140px; display: flex; align-items: center; justify-content: center; font-size: 56px; }
+.post-body { padding: 16px 18px; }
+.post-tags { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 8px; }
+.post-tag {
+  font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 4px;
+  background: #fef3c7; color: #92400e;
+}
+.post-title { font-size: 16px; font-weight: 700; margin-bottom: 6px; line-height: 1.4; }
+.post-excerpt { font-size: 13px; color: #777; line-height: 1.6; margin-bottom: 12px; }
+.post-meta { display: flex; align-items: center; justify-content: space-between; }
+.author-info { display: flex; align-items: center; gap: 8px; }
+.author-avatar {
+  width: 28px; height: 28px; border-radius: 50%;
+  background: #b45309; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 11px; font-weight: 700;
+}
+.author-name { font-size: 12px; font-weight: 600; }
+.post-date { font-size: 11px; color: #aaa; }
+.likes { font-size: 12px; color: #aaa; }
+
+/* Single post */
+.post-view { max-width: 680px; margin: 0 auto; padding: 40px 20px 80px; }
+.back-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 14px; color: #777; cursor: pointer;
+  margin-bottom: 28px; background: none; border: none;
+}
+.back-btn:hover { color: #b45309; }
+.post-view .cover { height: 200px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 80px; margin-bottom: 28px; }
+.post-view h1 { font-size: 2rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; line-height: 1.2; }
+.post-view .meta { display: flex; align-items: center; gap: 12px; margin-bottom: 28px; padding-bottom: 20px; border-bottom: 1px solid #e8e4dc; }
+.post-view .content { font-size: 16px; line-height: 1.85; color: #333; }
+.post-view .content p { margin-bottom: 16px; }
+.post-view .content h2 { font-size: 1.3rem; margin: 28px 0 12px; }
+
+/* Write */
+.write-view { max-width: 700px; margin: 0 auto; padding: 40px 20px; }
+.write-view h2 { font-size: 1.6rem; font-weight: 800; margin-bottom: 24px; }
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 13px; font-weight: 600; color: #555; margin-bottom: 6px; }
+.form-group input, .form-group textarea, .form-group select {
+  width: 100%; padding: 11px 14px; border-radius: 8px;
+  border: 1.5px solid #e8e4dc; font-size: 14px; outline: none; font-family: inherit;
+  transition: border-color .2s;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color: #b45309; }
+.form-group textarea { resize: vertical; min-height: 200px; }
+.publish-btn {
+  padding: 12px 28px; border-radius: 8px;
+  background: #b45309; color: #fff; border: none;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+}
+</style>
+</head>
+<body>
+<nav>
+  <div class="logo">Blog<span>Space</span> ✍️</div>
+  <div class="nav-right">
+    <button class="nav-btn btn-ghost" onclick="showView('write')">Write Post</button>
+    <button class="nav-btn btn-solid" onclick="showView('home')">Home</button>
+  </div>
+</nav>
+
+<!-- HOME VIEW -->
+<div class="view active" id="view-home">
+  <div class="container">
+    <div class="hero-section">
+      <h1>Ideas worth <em>reading</em></h1>
+      <p>A space for developers to share knowledge, tutorials, and thoughts on tech.</p>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search posts..." oninput="renderPosts()">
+        <button>Search</button>
+      </div>
+    </div>
+    <div class="tags-bar" id="tags-bar"></div>
+    <div class="posts-grid" id="posts-grid"></div>
+  </div>
+</div>
+
+<!-- POST VIEW -->
+<div class="view" id="view-post">
+  <div class="post-view">
+    <button class="back-btn" onclick="showView('home')">← Back to posts</button>
+    <div class="cover" id="pv-cover"></div>
+    <div class="post-tags" id="pv-tags"></div>
+    <h1 id="pv-title"></h1>
+    <div class="meta">
+      <div class="author-info">
+        <div class="author-avatar" id="pv-avatar"></div>
+        <span class="author-name" id="pv-author"></span>
+      </div>
+      <span class="post-date" id="pv-date"></span>
+      <span class="likes" id="pv-likes"></span>
+    </div>
+    <div class="content" id="pv-content"></div>
+  </div>
+</div>
+
+<!-- WRITE VIEW -->
+<div class="view" id="view-write">
+  <div class="container">
+    <div class="write-view">
+      <h2>Write a New Post ✍️</h2>
+      <div class="form-group">
+        <label>Post Title *</label>
+        <input type="text" id="w-title" placeholder="Enter a catchy title..." />
+      </div>
+      <div class="form-group">
+        <label>Cover Emoji</label>
+        <input type="text" id="w-emoji" placeholder="e.g. 🚀" maxlength="2" value="📝" />
+      </div>
+      <div class="form-group">
+        <label>Tags (comma separated)</label>
+        <input type="text" id="w-tags" placeholder="e.g. React, JavaScript, Tutorial" />
+      </div>
+      <div class="form-group">
+        <label>Background Color</label>
+        <select id="w-bg">
+          <option value="#fef3c7">Yellow</option>
+          <option value="#dbeafe">Blue</option>
+          <option value="#d1fae5">Green</option>
+          <option value="#fce7f3">Pink</option>
+          <option value="#ede9fe">Purple</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Content *</label>
+        <textarea id="w-content" placeholder="Write your post here..."></textarea>
+      </div>
+      <button class="publish-btn" onclick="publishPost()">Publish Post →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+let posts = JSON.parse(localStorage.getItem('bs_posts') || 'null');
+let activeTag = 'All';
+
+const DEFAULT_POSTS = [
+  { id:1, title:'Getting Started with React Hooks', emoji:'⚛️', bg:'#dbeafe', tags:['React','JavaScript'], author:'Lokesh Kumar', date:'Mar 10, 2025', likes:142, excerpt:'React Hooks changed the way we write functional components. In this post, we explore useState, useEffect, and custom hooks.', content:`<p>React Hooks were introduced in React 16.8 and completely changed how we write React components. Before hooks, functional components couldn't have state — you had to use class components for that.</p><h2>useState</h2><p>The useState hook lets you add state to a functional component. It returns the current state value and a function to update it.</p><h2>useEffect</h2><p>useEffect handles side effects in your components — fetching data, subscriptions, manually changing the DOM, and more.</p><p>By mastering these two hooks, you can handle the majority of real-world React use cases cleanly and efficiently.</p>` },
+  { id:2, title:'Building REST APIs with Node.js and Express', emoji:'🟩', bg:'#d1fae5', tags:['Node.js','Express','Backend'], author:'Lokesh Kumar', date:'Feb 22, 2025', likes:98, excerpt:'A beginner-friendly guide to creating your first REST API with Express, covering routes, middleware, and JSON responses.', content:`<p>Express.js is the most popular framework for building web applications and APIs with Node.js. It's minimal, fast, and very flexible.</p><h2>Setting Up</h2><p>Start by initialising a project with npm init and installing Express. Then create your server file and define your first route.</p><h2>Routes and Middleware</h2><p>Routes define how your app responds to client requests. Middleware functions have access to the request and response objects and can perform tasks like logging, authentication, and error handling.</p><p>Following REST principles will make your APIs predictable and easy to consume from any frontend.</p>` },
+  { id:3, title:'MongoDB vs MySQL: Which should you pick?', emoji:'🗄️', bg:'#fce7f3', tags:['MongoDB','MySQL','Database'], author:'Lokesh Kumar', date:'Feb 5, 2025', likes:75, excerpt:"Comparing two of the world's most popular databases — when to use a document store vs a relational model.", content:`<p>Choosing the right database is one of the most important architectural decisions you'll make for a project.</p><h2>MySQL (Relational)</h2><p>MySQL uses tables, rows, and columns. It enforces a schema and relationships between tables. It's excellent for structured data, complex queries, and when data integrity is critical.</p><h2>MongoDB (Document)</h2><p>MongoDB stores data as flexible JSON-like documents. There's no fixed schema, so it's great for evolving data structures, rapid prototyping, and storing nested or varied data.</p><p>For most full-stack projects, MongoDB pairs naturally with Node.js (the MERN stack). For financial or transactional apps, MySQL is usually the safer choice.</p>` },
+  { id:4, title:'CSS Grid vs Flexbox: The Complete Guide', emoji:'🎨', bg:'#ede9fe', tags:['CSS','Frontend'], author:'Lokesh Kumar', date:'Jan 18, 2025', likes:203, excerpt:'Understanding when to use CSS Grid and when to reach for Flexbox — with practical layout examples for both.', content:`<p>CSS Grid and Flexbox are both powerful layout systems, but they solve different problems.</p><h2>Flexbox</h2><p>Flexbox is one-dimensional — it lays items out in a row or a column. It's ideal for navigation bars, centering content, and distributing space along a single axis.</p><h2>CSS Grid</h2><p>Grid is two-dimensional — it works with rows and columns simultaneously. It's perfect for full-page layouts, card grids, and any design where you need precise placement in both directions.</p><p>In practice, you'll often use both together: Grid for the overall page layout and Flexbox for the components within it.</p>` },
+  { id:5, title:'Git for Beginners: Essential Commands', emoji:'📦', bg:'#fef3c7', tags:['Git','Tools'], author:'Lokesh Kumar', date:'Jan 3, 2025', likes:187, excerpt:"Every developer's guide to the Git commands you'll use every day — commit, branch, merge, and more.", content:`<p>Git is the most widely used version control system in the world. Whether you're working solo or in a team, understanding Git is non-negotiable.</p><h2>Core Commands</h2><p>git init starts a new repo. git add stages your changes. git commit saves a snapshot. git push uploads to remote. git pull downloads the latest changes from remote.</p><h2>Branching</h2><p>Branches let you work on features in isolation without affecting the main codebase. Create a branch with git checkout -b feature-name, do your work, then merge it back when ready.</p><p>Using Git well will make you a much more confident and collaborative developer.</p>` },
+];
+
+if (!posts) { posts = DEFAULT_POSTS; saveP(); }
+function saveP() { localStorage.setItem('bs_posts', JSON.stringify(posts)); }
+
+function getAllTags() {
+  const all = posts.flatMap(p => p.tags);
+  return ['All', ...new Set(all)];
+}
+
+function renderTags() {
+  const tags = getAllTags();
+  document.getElementById('tags-bar').innerHTML = tags.map(t => `
+    <span class="tag ${t === activeTag ? 'active' : ''}" onclick="setTag('${t}')">${t}</span>
+  `).join('');
+}
+
+function setTag(t) { activeTag = t; renderTags(); renderPosts(); }
+
+function renderPosts() {
+  const q = document.getElementById('search-input')?.value.toLowerCase() || '';
+  let filtered = posts.filter(p =>
+    (activeTag === 'All' || p.tags.includes(activeTag)) &&
+    (p.title.toLowerCase().includes(q) || p.tags.some(t => t.toLowerCase().includes(q)))
+  );
+  document.getElementById('posts-grid').innerHTML = filtered.map(p => `
+    <div class="post-card" onclick="openPost(${p.id})">
+      <div class="post-cover" style="background:${p.bg}">${p.emoji}</div>
+      <div class="post-body">
+        <div class="post-tags">${p.tags.map(t => `<span class="post-tag">${t}</span>`).join('')}</div>
+        <div class="post-title">${p.title}</div>
+        <div class="post-excerpt">${p.excerpt}</div>
+        <div class="post-meta">
+          <div class="author-info">
+            <div class="author-avatar">${p.author.slice(0,2).toUpperCase()}</div>
+            <span class="author-name">${p.author}</span>
+          </div>
+          <span class="post-date">${p.date}</span>
+          <span class="likes">❤️ ${p.likes}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openPost(id) {
+  const p = posts.find(p => p.id === id);
+  if (!p) return;
+  document.getElementById('pv-cover').style.background = p.bg;
+  document.getElementById('pv-cover').textContent = p.emoji;
+  document.getElementById('pv-tags').innerHTML = p.tags.map(t => `<span class="post-tag">${t}</span>`).join('');
+  document.getElementById('pv-title').textContent = p.title;
+  document.getElementById('pv-avatar').textContent = p.author.slice(0,2).toUpperCase();
+  document.getElementById('pv-author').textContent = p.author;
+  document.getElementById('pv-date').textContent = p.date;
+  document.getElementById('pv-likes').textContent = `❤️ ${p.likes}`;
+  document.getElementById('pv-content').innerHTML = p.content;
+  showView('post');
+}
+
+function publishPost() {
+  const title = document.getElementById('w-title').value.trim();
+  const content = document.getElementById('w-content').value.trim();
+  if (!title) return alert('Please enter a title.');
+  if (!content) return alert('Please enter content.');
+  const tags = document.getElementById('w-tags').value.split(',').map(t => t.trim()).filter(Boolean);
+  const newPost = {
+    id: Date.now(), title,
+    emoji: document.getElementById('w-emoji').value || '📝',
+    bg: document.getElementById('w-bg').value,
+    tags: tags.length ? tags : ['General'],
+    author: 'Lokesh Kumar',
+    date: new Date().toLocaleDateString('en-IN', { day:'numeric', month:'short', year:'numeric' }),
+    likes: 0,
+    excerpt: content.slice(0, 120) + '...',
+    content: content.split('\n\n').map(p => `<p>${p}</p>`).join('')
+  };
+  posts.unshift(newPost);
+  saveP();
+  document.getElementById('w-title').value = '';
+  document.getElementById('w-content').value = '';
+  document.getElementById('w-tags').value = '';
+  alert('Post published!');
+  showView('home');
+}
+
+function showView(name) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById(`view-${name}`).classList.add('active');
+  if (name === 'home') { renderTags(); renderPosts(); }
+  window.scrollTo(0, 0);
+}
+
+renderTags(); renderPosts();
+</script>
+</body>
+</html>
