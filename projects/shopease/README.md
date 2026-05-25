@@ -1,46 +1,7 @@
 # 🛒 ShopEase
-
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat)
+t)
 
 > A fully functional e-commerce frontend with product listing, search, category filtering, sorting, cart management, quantity controls, and a checkout flow — all in a single HTML file with no backend required.
-
----
-
-## 📸 Preview
-
-```
-┌──────────────────────────────────────────────────────┐
-│  ShopEase 🛒                      🛒 Cart  [2]       │
-├──────────────────────────────────────────────────────┤
-│  [ Search products... ] [Category ▼] [Sort by ▼]    │
-│  12 products                                         │
-│                                                      │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐           │
-│  │   🎧     │  │   ⌨️     │  │   👟     │           │
-│  │Electronics│  │Electronics│  │ Clothing │           │
-│  │Wireless  │  │Mechanical │  │Running   │           │
-│  │Headphones│  │Keyboard  │  │Shoes     │           │
-│  │₹2,499    │  │₹3,999    │  │₹1,799    │           │
-│  │★★★★½    │  │★★★★★    │  │★★★★½    │           │
-│  │[+ Add]   │  │[+ Add]   │  │[✓ Added] │           │
-│  └──────────┘  └──────────┘  └──────────┘           │
-└──────────────────────────────────────────────────────┘
-
-  Cart Sidebar (slides in from right)
-  ┌─────────────────────┐
-  │ Your Cart       [✕] │
-  │ 🎧 Headphones       │
-  │ ₹2,499  [−] 1 [+]  │
-  │ 👟 Running Shoes    │
-  │ ₹1,799  [−] 2 [+]  │
-  │ ─────────────────── │
-  │ Total  ₹6,097       │
-  │ [Proceed to Checkout│
-  └─────────────────────┘
-```
 
 ---
 
@@ -86,22 +47,13 @@
 
 ## 🚀 Setup & Run
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/YOUR_USERNAME/shopease.git
-cd shopease
-```
-
-### 2. Open in browser
+### 1. Open in browser
 ```bash
 open index.html        # macOS
 start index.html       # Windows
 xdg-open index.html    # Linux
 ```
 
-No API key, no npm install needed.
-
----
 
 ## 📁 File Structure
 
@@ -128,14 +80,6 @@ This is a frontend-only demo. To turn it into a full-stack app:
    const PRODUCTS = await res.json();
    ```
 5. **Orders API**: Send cart data to `/api/orders` on checkout
-
----
-
-## 🌐 Deploy to GitHub Pages
-
-1. Push to GitHub
-2. Repo → **Settings** → **Pages** → Source: **main / root**
-3. Live at: `https://YOUR_USERNAME.github.io/shopease`
 
 ---
 
