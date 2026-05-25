@@ -9,29 +9,6 @@
 
 ---
 
-## 📸 Preview
-
-```
-┌─────────────────────────────────────────────────────┐
-│  ✅ TaskFlow          [ + Add Task ]                │
-│  3 To Do    2 In Progress    4 Done                 │
-├────────────────┬──────────────────┬─────────────────┤
-│   To Do        │   In Progress    │   Done          │
-│                │                  │                 │
-│ ┌────────────┐ │ ┌──────────────┐ │ ┌─────────────┐│
-│ │Build login │ │ │Design UI     │ │ │Setup project││
-│ │🔴 high     │ │ │🟡 medium     │ │ │🔴 high      ││
-│ │📅 Mar 30  │ │ │              │ │ │✓ Done       ││
-│ └────────────┘ │ └──────────────┘ │ └─────────────┘│
-│ ┌────────────┐ │                  │                 │
-│ │Write tests │ │                  │                 │
-│ │🟢 low      │ │                  │                 │
-│ └────────────┘ │                  │                 │
-└────────────────┴──────────────────┴─────────────────┘
-```
-
----
-
 ## ✨ Features
 
 | Feature | Description |
@@ -61,22 +38,13 @@
 
 ## 🚀 Setup & Run
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/YOUR_USERNAME/taskflow.git
-cd taskflow
-```
-
-### 2. Open in browser
+### 1. Open in browser
 ```bash
 open index.html        # macOS
 start index.html       # Windows
 xdg-open index.html    # Linux
 ```
 
-No API key, no npm install, no configuration needed.
-
----
 
 ## 📁 File Structure
 
@@ -103,14 +71,6 @@ taskflow/
 
 ---
 
-## 🌐 Deploy to GitHub Pages
-
-1. Push to GitHub
-2. Go to repo → **Settings** → **Pages**
-3. Source: **main branch → / (root)**
-4. Live at: `https://YOUR_USERNAME.github.io/taskflow`
-
----
 
 ## 📄 License
 
