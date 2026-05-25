@@ -73,50 +73,6 @@
 
 ---
 
-## 🚀 How to Upload Each Project to GitHub
-
-Each folder is its own standalone project. Upload them **one folder at a time** as separate GitHub repositories.
-
-### Step-by-step for each project:
-
-```bash
-# 1. Go into the project folder
-cd weathernow        # or taskflow / budgettracker / shopease / chatbuddy / blogspace
-
-# 2. Initialise Git
-git init
-
-# 3. Stage all files
-git add .
-
-# 4. Make first commit
-git commit -m "Initial commit - WeatherNow project"
-
-# 5. Create a new repo on github.com (click + → New repository)
-#    Name it: weathernow
-#    Set it to Public
-#    Do NOT add README, .gitignore or license (we already have them)
-
-# 6. Connect and push
-git remote add origin https://github.com/YOUR_USERNAME/weathernow.git
-git branch -M main
-git push -u origin main
-```
-
-Repeat for each project folder with the correct repo name.
-
----
-
-## 🌐 Deploy Each Project Live (GitHub Pages)
-
-After uploading to GitHub:
-1. Go to the repo on GitHub
-2. Click **Settings** → **Pages**
-3. Source: **Deploy from a branch → main → / (root)**
-4. Click **Save**
-5. Your project is live at: `https://YOUR_USERNAME.github.io/PROJECT-NAME`
-
----
 
 ## ⚠️ Important Notes
 
