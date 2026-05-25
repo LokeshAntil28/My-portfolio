@@ -1,6 +1,6 @@
 // WeatherNow - app.js
 // Get your free API key from https://openweathermap.org/api
-const API_KEY = '51b0f7baa81a0e0400bb160257db99b6';
+const API_KEY = '51b0f7baa81a0exxxxxxxxxxxx6';
 const BASE = 'https://api.openweathermap.org/data/2.5';
 
 const ICONS = {
