@@ -1,10 +1,5 @@
 # ✍️ BlogSpace
 
-![HTML](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat)
-
 > A full-featured blogging platform where you can browse posts, filter by tag, search by title, read full articles, and publish your own posts — all powered by localStorage, no backend required.
 
 ---
@@ -77,11 +72,6 @@
 
 ## 🚀 Setup & Run
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/YOUR_USERNAME/blogspace.git
-cd blogspace
-```
 
 ### 2. Open in browser
 ```bash
@@ -112,28 +102,6 @@ blogspace/
 4. **Read** — Click any card to open and read the full post
 5. **Write** — Click **Write Post** in the nav to publish a new article
 6. **Publish** — Fill in the form and click **Publish Post →** — it appears instantly in the feed
-
----
-
-## 🔧 How to Extend with a Real Backend
-
-This is a frontend demo. To extend with a full-stack backend:
-
-1. **Node.js + Express** API with routes for `/posts`, `/posts/:id`
-2. **MongoDB** to store posts, authors, and comments
-3. **Cloudinary** for cover image uploads
-4. **JWT Auth** for user accounts and authoring permissions
-5. Replace `localStorage.getItem/setItem` with `fetch('/api/posts')` calls
-
----
-
-## 🌐 Deploy to GitHub Pages
-
-1. Push to GitHub
-2. Repo → **Settings** → **Pages** → Source: **main / root**
-3. Live at: `https://YOUR_USERNAME.github.io/blogspace`
-
----
 
 ## 📄 License
 
